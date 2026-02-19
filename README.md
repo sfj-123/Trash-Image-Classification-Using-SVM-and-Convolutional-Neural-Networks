@@ -4,97 +4,103 @@ In terms of methods, we compared the traditional machine learning schemes based 
 
 ---
 
-# Trash Image Classification Using SVM and CNNs
+Here is the `README.md` for your GitHub project, written in English based on your paper.
 
-## 📖 项目简介
+---
 
-随着全球城市化的加速，高效的自动垃圾分类是优化回收利用和应对环境挑战的关键 。本项目开发并评估了一个基于图像的垃圾分类系统，对比了基于人工特征的传统机器学习方案（SVM）与深度学习模型（CNN 和 ResNet-50）的性能 。
+# Trash Image Classification Using SVM and Convolutional Neural Networks
 
-## 📊 数据集 (Garbage Classification Dataset V2)
+This project implements and compares traditional machine learning and deep learning approaches for automated waste classification. It evaluates the performance of **SVM (with HOG & LBP features)**, a **Standard CNN**, and **ResNet-50** on a large-scale garbage dataset.
 
-本研究使用来自 Kaggle 的垃圾分类数据集 V2 ：
+## 📖 Introduction
 
-* 
-**样本总量**：19,407 张图像 。
+Efficient automatic waste classification is essential for optimizing recycling and addressing environmental challenges. This study develops an image-based classification system to categorize residential and commercial waste into 10 distinct classes. We specifically address challenges like inter-class similarity (e.g., paper vs. cardboard) and cluttered backgrounds using both handcrafted feature engineering and deep hierarchical learning.
 
+## 📊 Dataset
 
-* 
-**分类数量**：10 个类别（电池、生物垃圾、纸板、衣服、玻璃、金属、纸张、塑料、鞋子、垃圾） 。
-
+The project uses the **Garbage Classification Dataset (V2)** from Kaggle:
 
 * 
-**挑战点**：复杂的背景、类内差异大、类间相似度高（如纸张与纸板） 。
-
-
-
-## 🛠 方法论
-
-### 1. 传统机器学习 (SVM)
-
-利用 GPU 加算的特征提取器建立基准模型 ：
-
-* **特征提取**：
-* 
-**多尺度 LBP**：通过三个半径（R=1, 2, 3）提取纹理信息，形成 768 维描述符 。
+**Total Images**: 19,407.
 
 
 * 
-**色彩优化 HOG**：直接在 RGB 通道上操作以保留色彩-纹理交互信息，捕捉边缘和轮廓 。
+**Categories**: 10 classes including Battery, Biological, Glass, Cardboard, Clothes, Metal, Paper, Plastic, Shoes, and Trash.
+
+
+* 
+**Data Split**: 64% Training, 16% Validation, and 20% Testing.
+
+
+
+## 🛠 Methodology
+
+### 1. Traditional Machine Learning (SVM)
+
+A robust baseline using handcrafted features:
+
+* **Feature Extraction**:
+* 
+**Multi-Scale LBP**: Captures texture at radii , resulting in a 768-dimensional descriptor.
+
+
+* 
+**Color-Optimized HOG**: Operates directly on RGB channels to preserve color-texture interactions for better structural capture.
 
 
 
 
 * 
-**降维与分类**：使用 PCA 提取前 4096 个主成分，并配合 **RBF 核** 的 SVM 进行分类 。
-
-
-
-### 2. 深度学习 (CNN & ResNet)
-
-* 
-**标准 CNN**：通过卷积、ReLU 激活和池化层自动学习层次化空间特征 。
+**Processing**: High-dimensional features (10,000+) are compressed using **PCA** to the top 4,096 principal components.
 
 
 * 
-**ResNet-50**：采用残差学习（Residual Learning）解决深层网络中的退化问题，并通过迁移学习（Transfer Learning）进行微调 。
+**Classifier**: SVM with a **Radial Basis Function (RBF) kernel**.
 
 
 
-## 📈 实验结果
+### 2. Deep Learning (CNN & ResNet)
 
-在 19,407 张图像的测试集上，各模型的准确率表现如下 ：
+* 
+**Standard CNN**: A custom architecture utilizing sequential convolution, ReLU activation, and max-pooling layers to learn spatial hierarchies automatically.
 
-| 模型方案 | 准确率 (Accuracy) |
+
+* 
+**ResNet-50**: Utilizes **Transfer Learning** and residual blocks with skip connections to mitigate performance degradation in deep networks.
+
+
+
+## 📈 Results
+
+The experimental results demonstrate that deep learning significantly outperforms traditional methods.
+
+| Method | Accuracy |
 | --- | --- |
-| **SVM + HOG + LBP** | 77.06% 
+| **SVM + HOG + LBP** | 77.06% |
+| **Standard CNN** | 86.60% |
+| **ResNet-50** | **96.40%** |
 
- |
-| **标准 CNN** | 86.6% 
-
- |
-| **ResNet-50** | <br>**96.4%** 
-
- |
-
-### 核心结论
-
-* 深度学习模型在准确性和泛化能力上显著优于传统 SVM 。
-
-
-* ResNet-50 的残差结构有效提升了高层特征的学习能力，是处理复杂图像分类任务的首选方案 。
+* 
+**Conclusion**: While handcrafted features provide a solid baseline (77.06%), the ResNet-50 model achieves the highest accuracy (96.40%) by effectively learning high-level representations for complex waste images.
 
 
 
-## 🚀 快速开始
+## 🚀 How to Run
 
-1. **环境配置**：确保安装了 GPU 支持的深度学习框架（如 PyTorch）。
+1. 
+**Preprocessing**: Input images are resized and normalized.
+
+
 2. 
-**数据准备**：从 Kaggle 下载数据集并按类别存放在子目录下 。
+**SVM Pipeline**: Run the GPU-accelerated HOG/LBP extractors followed by PCA and SVM training.
 
 
-3. **模型训练**：
-* 传统模型：运行 HOG/LBP 提取脚本后训练 SVM。
-* 深度模型：使用较低的学习率对 ResNet-50 进行微调 。
+3. 
+**Deep Learning**: Fine-tune the ResNet-50 model using a small learning rate for stable convergence.
+
+
+
+
 
 
 

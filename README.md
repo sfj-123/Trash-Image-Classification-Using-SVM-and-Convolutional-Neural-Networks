@@ -1,10 +1,6 @@
 # Trash-Image-Classification-Using-SVM-and-Convolutional-Neural-Networks
 In terms of methods, we compared the traditional machine learning schemes based on  artificial features and Support Vector Machine (SVM), and the deep learning models of Convolutional Neural Network  (CNN) and Residual Network (ResNet). 
-这是一份根据您的论文内容整理的 GitHub 项目 `README.md` 文档模板。它涵盖了项目背景、数据集介绍、方法论对比、实验结果及结论。
 
----
-
-Here is the `README.md` for your GitHub project, written in English based on your paper.
 
 ---
 
